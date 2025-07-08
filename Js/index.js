@@ -26,9 +26,10 @@ searchInput.addEventListener("keypress", function(e) {
   }
 });
 
-
+ let loading=document.getElementById("loading");
 async function getWeather(location = "Cairo") {
   try {
+     loading.classList.remove("d-none")
     const response = await fetch(
       `https://api.weatherapi.com/v1/forecast.json?key=05918ec1290d4c6983b04820253006&q=${location}&days=3`
     );
@@ -36,6 +37,7 @@ async function getWeather(location = "Cairo") {
     if (!response.ok) throw new Error("Location not found");
     
     weatherData = await response.json();
+     loading.classList.add("d-none");
     displayWeatherData();
   } catch (error) {
     console.error("Error:", error);
